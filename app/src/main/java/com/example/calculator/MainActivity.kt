@@ -172,6 +172,9 @@ class MainActivity : AppCompatActivity() {
 
         Thread(Runnable {
             db.historyDao().getAll().reversed().forEach{
+                //핸들러 - 쓰레드-쓰레드 간의 통신을 하는 방법
+                //메인 쓰레드에 연결되어 있는 핸들러는 MainActivity에 연결되어 있다.
+                //runonUiThread를 통해서 다른 쓰레드에서 실행되는 작업을 메인 쓰레드로 넘겨서 메인 쓰레드가 작업을 하도록 한다.
                 runOnUiThread {
                     val historyView = LayoutInflater.from(this).inflate(R.layout.history_row, null, false)
                     historyView.findViewById<TextView>(R.id.expressionTextView).text = it.expression
